@@ -1,13 +1,15 @@
+
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+
+<html data-theme="light" lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Vitanest — Your Everyday Health Toolkit</title>
-<meta name="description" content="BMI, water intake, calorie, period, pregnancy, sleep, walking calculators, fitness planner, healthy recipes and a medical abbreviation dictionary — all in one place.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta content="BMI, water intake, calorie, period, pregnancy, sleep, walking calculators, fitness planner, healthy recipes and a medical abbreviation dictionary — all in one place." name="description"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#F4F7F3; --bg-alt:#EAF0E8; --card:#FFFFFF;
@@ -161,310 +163,294 @@
 </style>
 </head>
 <body>
-
 <nav id="topnav">
-  <div class="brand"><span class="dot"></span>Vitanest</div>
-  <div style="display:flex; align-items:center; gap:14px;">
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="knob">☾</span></button>
-    <a href="#bmi" class="btn btn-primary">Start with BMI</a>
-  </div>
-</nav>
-
-<div id="quicknav">
-  <a href="#bmi">⚖️ BMI</a>
-  <a href="#water">💧 Water</a>
-  <a href="#calorie">🔥 Calories</a>
-  <a href="#period">🩸 Period Info</a>
-  <a href="#pregnancy">🤰 Due Date</a>
-  <a href="#sleep">😴 Sleep</a>
-  <a href="#walking">🚶 Walking</a>
-  <a href="#fitness">🏋️ Fitness Plan</a>
-  <a href="#recipes">🥗 Recipes</a>
-  <a href="#dictionary">📖 Med. Dictionary</a>
+<div class="brand"><span class="dot"></span>Vitanest</div>
+<div style="display:flex; align-items:center; gap:14px;">
+<button aria-label="Toggle dark mode" class="theme-toggle" id="themeToggle"><span class="knob">☾</span></button>
+<a class="btn btn-primary" href="#bmi">Start with BMI</a>
 </div>
-
+</nav>
+<div id="quicknav">
+<a href="#bmi">⚖️ BMI</a>
+<a href="#water">💧 Water</a>
+<a href="#calorie">🔥 Calories</a>
+<a href="#period">🩸 Period Info</a>
+<a href="#pregnancy">🤰 Due Date</a>
+<a href="#sleep">😴 Sleep</a>
+<a href="#walking">🚶 Walking</a>
+<a href="#fitness">🏋️ Fitness Plan</a>
+<a href="#recipes">🥗 Recipes</a>
+<a href="#dictionary">📖 Med. Dictionary</a>
+</div>
 <section id="hero">
-  <div class="wrap">
-    <div class="eyebrow">10 tools · 1 page · no sign-up</div>
-    <h1 class="headline">Your everyday <span>health toolkit</span>, all in one place.</h1>
-    <p class="sub">BMI, water, calories, sleep, walking, fitness planning, pregnancy and period estimates, healthy recipes, and a medical term lookup — calculated instantly, right in your browser.</p>
-    <p class="disclaimer-tag">These tools give general wellness estimates for everyday use. They are not medical advice — for anything health-related, please check with a doctor or qualified professional.</p>
-
-    <div class="tool-grid">
-      <a href="#bmi" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 14l3-4 2 3 3-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>BMI Calculator</span></a>
-      <a href="#water" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M12 3s7 7.6 7 12a7 7 0 11-14 0c0-4.4 7-12 7-12z" stroke="currentColor" stroke-width="1.6"/></svg><span>Water Intake</span></a>
-      <a href="#calorie" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M12 3c1 3-2 4-2 7a3 3 0 006 0c0-1.3-.7-2-1-3 2 1 3 3.5 3 6a6 6 0 11-12 0c0-4 3.5-7 6-10z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Calorie Calculator</span></a>
-      <a href="#period" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M12 14v7M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Period Tracker Info</span></a>
-      <a href="#pregnancy" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Pregnancy Due Date</span></a>
-      <a href="#sleep" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M15 3a7 7 0 100 18 8 8 0 01-8-8 8 8 0 018-10z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Sleep Calculator</span></a>
-      <a href="#walking" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><circle cx="14" cy="5" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 22l2-6 2 2 2 4M9 13l2-4 3 1 2-3M11 9L8 8l-2 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Walking Calculator</span></a>
-      <a href="#fitness" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M4 12h2M18 12h2M6 12h12M8 8v8M16 8v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Fitness Planner</span></a>
-      <a href="#recipes" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M5 10a7 7 0 0114 0v0H5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 10h16M12 3v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Healthy Recipes</span></a>
-      <a href="#dictionary" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M5 4h9a3 3 0 013 3v13H8a3 3 0 01-3-3V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 20a3 3 0 003-3V6" stroke="currentColor" stroke-width="1.6"/></svg><span>Med. Dictionary</span></a>
-    </div>
-  </div>
+<div class="wrap">
+<div class="eyebrow">10 tools · 1 page · no sign-up</div>
+<h1 class="headline">Your everyday <span>health toolkit</span>, all in one place.</h1>
+<p class="sub">BMI, water, calories, sleep, walking, fitness planning, pregnancy and period estimates, healthy recipes, and a medical term lookup — calculated instantly, right in your browser.</p>
+<p class="disclaimer-tag">These tools give general wellness estimates for everyday use. They are not medical advice — for anything health-related, please check with a doctor or qualified professional.</p>
+<div class="tool-grid">
+<a class="card tool-tile" href="#bmi"><svg class="ic" fill="none" viewbox="0 0 24 24"><rect height="16" rx="3" stroke="currentColor" stroke-width="1.6" width="16" x="4" y="4"></rect><path d="M8 14l3-4 2 3 3-5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg><span>BMI Calculator</span></a>
+<a class="card tool-tile" href="#water"><svg class="ic" fill="none" viewbox="0 0 24 24"><path d="M12 3s7 7.6 7 12a7 7 0 11-14 0c0-4.4 7-12 7-12z" stroke="currentColor" stroke-width="1.6"></path></svg><span>Water Intake</span></a>
+<a class="card tool-tile" href="#calorie"><svg class="ic" fill="none" viewbox="0 0 24 24"><path d="M12 3c1 3-2 4-2 7a3 3 0 006 0c0-1.3-.7-2-1-3 2 1 3 3.5 3 6a6 6 0 11-12 0c0-4 3.5-7 6-10z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path></svg><span>Calorie Calculator</span></a>
+<a class="card tool-tile" href="#period"><svg class="ic" fill="none" viewbox="0 0 24 24"><circle cx="12" cy="9" r="5" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 14v7M9 18h6" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path></svg><span>Period Tracker Info</span></a>
+<a class="card tool-tile" href="#pregnancy"><svg class="ic" fill="none" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"></circle><path d="M12 8v4l3 2" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path></svg><span>Pregnancy Due Date</span></a>
+<a class="card tool-tile" href="#sleep"><svg class="ic" fill="none" viewbox="0 0 24 24"><path d="M15 3a7 7 0 100 18 8 8 0 01-8-8 8 8 0 018-10z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path></svg><span>Sleep Calculator</span></a>
+<a class="card tool-tile" href="#walking"><svg class="ic" fill="none" viewbox="0 0 24 24"><circle cx="14" cy="5" r="2" stroke="currentColor" stroke-width="1.6"></circle><path d="M11 22l2-6 2 2 2 4M9 13l2-4 3 1 2-3M11 9L8 8l-2 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"></path></svg><span>Walking Calculator</span></a>
+<a class="card tool-tile" href="#fitness"><svg class="ic" fill="none" viewbox="0 0 24 24"><path d="M4 12h2M18 12h2M6 12h12M8 8v8M16 8v8" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path></svg><span>Fitness Planner</span></a>
+<a class="card tool-tile" href="#recipes"><svg class="ic" fill="none" viewbox="0 0 24 24"><path d="M5 10a7 7 0 0114 0v0H5z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path><path d="M4 10h16M12 3v2" stroke="currentColor" stroke-linecap="round" stroke-width="1.6"></path></svg><span>Healthy Recipes</span></a>
+<a class="card tool-tile" href="#dictionary"><svg class="ic" fill="none" viewbox="0 0 24 24"><path d="M5 4h9a3 3 0 013 3v13H8a3 3 0 01-3-3V4z" stroke="currentColor" stroke-linejoin="round" stroke-width="1.6"></path><path d="M17 20a3 3 0 003-3V6" stroke="currentColor" stroke-width="1.6"></path></svg><span>Med. Dictionary</span></a>
+</div>
+</div>
 </section>
-
 <!-- ============ BMI ============ -->
-<section id="bmi" class="pad">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">⚖️</div><div><h2>BMI Calculator</h2><p>Body Mass Index from your height and weight.</p></div></div>
-    <div class="card tool-body">
-      <div>
-        <div class="seg" id="bmiUnitSeg">
-          <button class="active" data-v="metric">Metric (cm/kg)</button>
-          <button data-v="imperial">Imperial (ft/lb)</button>
-        </div>
-        <div style="height:16px"></div>
-        <div id="bmiMetricFields">
-          <div class="field"><label>Height (cm)</label><input type="number" id="bmiHeightCm" value="170"></div>
-          <div class="field"><label>Weight (kg)</label><input type="number" id="bmiWeightKg" value="65"></div>
-        </div>
-        <div id="bmiImperialFields" style="display:none;">
-          <div class="field-row">
-            <div class="field"><label>Height (ft)</label><input type="number" id="bmiHeightFt" value="5"></div>
-            <div class="field"><label>Height (in)</label><input type="number" id="bmiHeightIn" value="7"></div>
-          </div>
-          <div class="field"><label>Weight (lb)</label><input type="number" id="bmiWeightLb" value="143"></div>
-        </div>
-      </div>
-      <div class="result-panel">
-        <div class="result-big"><div class="num" id="bmiValue">—</div><div class="lbl">Your BMI</div></div>
-        <div style="text-align:center;"><span class="badge green" id="bmiCategory">—</span></div>
-        <div class="gauge"><div class="marker" id="bmiMarker" style="left:0%"></div></div>
-        <div class="gauge-labels"><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span></div>
-        <p class="note">BMI is a general screening measure and doesn't account for muscle mass, frame size, age, or pregnancy. Use it as a starting point, not a diagnosis.</p>
-      </div>
-    </div>
-  </div>
+<section class="pad" id="bmi">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">⚖️</div><div><h2>BMI Calculator</h2><p>Body Mass Index from your height and weight.</p></div></div>
+<div class="card tool-body">
+<div>
+<div class="seg" id="bmiUnitSeg">
+<button class="active" data-v="metric">Metric (cm/kg)</button>
+<button data-v="imperial">Imperial (ft/lb)</button>
+</div>
+<div style="height:16px"></div>
+<div id="bmiMetricFields">
+<div class="field"><label>Height (cm)</label><input id="bmiHeightCm" type="number" value="170"/></div>
+<div class="field"><label>Weight (kg)</label><input id="bmiWeightKg" type="number" value="65"/></div>
+</div>
+<div id="bmiImperialFields" style="display:none;">
+<div class="field-row">
+<div class="field"><label>Height (ft)</label><input id="bmiHeightFt" type="number" value="5"/></div>
+<div class="field"><label>Height (in)</label><input id="bmiHeightIn" type="number" value="7"/></div>
+</div>
+<div class="field"><label>Weight (lb)</label><input id="bmiWeightLb" type="number" value="143"/></div>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-big"><div class="num" id="bmiValue">—</div><div class="lbl">Your BMI</div></div>
+<div style="text-align:center;"><span class="badge green" id="bmiCategory">—</span></div>
+<div class="gauge"><div class="marker" id="bmiMarker" style="left:0%"></div></div>
+<div class="gauge-labels"><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span></div>
+<p class="note">BMI is a general screening measure and doesn't account for muscle mass, frame size, age, or pregnancy. Use it as a starting point, not a diagnosis.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ============ WATER ============ -->
-<section id="water" class="pad" style="background:var(--bg-alt);">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">💧</div><div><h2>Water Intake Calculator</h2><p>An everyday hydration target based on your weight and activity.</p></div></div>
-    <div class="card tool-body">
-      <div>
-        <div class="field"><label>Weight (kg)</label><input type="number" id="waterWeight" value="65"></div>
-        <div class="field"><label>Activity level</label>
-          <select id="waterActivity">
-            <option value="0">Mostly sitting</option>
-            <option value="350" selected>Light activity (some walking)</option>
-            <option value="700">Moderate exercise</option>
-            <option value="1000">Intense training</option>
-          </select>
-        </div>
-        <div class="field"><label><input type="checkbox" id="waterHot" style="width:auto; margin-right:8px;">Hot / humid climate</label></div>
-      </div>
-      <div class="result-panel">
-        <div class="result-big"><div class="num" id="waterLiters">—</div><div class="lbl">Litres per day</div></div>
-        <div class="result-row"><span>Approx. glasses (250ml)</span><b id="waterGlasses">—</b></div>
-        <div class="result-row"><span>Approx. bottles (500ml)</span><b id="waterBottles">—</b></div>
-        <p class="note">Includes water from food and other drinks. Increase intake further if you're unwell, pregnant, or breastfeeding — ask your doctor for a personalised target.</p>
-      </div>
-    </div>
-  </div>
+<section class="pad" id="water" style="background:var(--bg-alt);">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">💧</div><div><h2>Water Intake Calculator</h2><p>An everyday hydration target based on your weight and activity.</p></div></div>
+<div class="card tool-body">
+<div>
+<div class="field"><label>Weight (kg)</label><input id="waterWeight" type="number" value="65"/></div>
+<div class="field"><label>Activity level</label>
+<select id="waterActivity">
+<option value="0">Mostly sitting</option>
+<option selected="" value="350">Light activity (some walking)</option>
+<option value="700">Moderate exercise</option>
+<option value="1000">Intense training</option>
+</select>
+</div>
+<div class="field"><label><input id="waterHot" style="width:auto; margin-right:8px;" type="checkbox"/>Hot / humid climate</label></div>
+</div>
+<div class="result-panel">
+<div class="result-big"><div class="num" id="waterLiters">—</div><div class="lbl">Litres per day</div></div>
+<div class="result-row"><span>Approx. glasses (250ml)</span><b id="waterGlasses">—</b></div>
+<div class="result-row"><span>Approx. bottles (500ml)</span><b id="waterBottles">—</b></div>
+<p class="note">Includes water from food and other drinks. Increase intake further if you're unwell, pregnant, or breastfeeding — ask your doctor for a personalised target.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ============ CALORIE ============ -->
-<section id="calorie" class="pad">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">🔥</div><div><h2>Calorie Calculator</h2><p>Estimated daily calories using the Mifflin-St Jeor formula.</p></div></div>
-    <div class="card tool-body">
-      <div>
-        <div class="field-row">
-          <div class="field"><label>Sex</label><select id="calSex"><option value="m">Male</option><option value="f">Female</option></select></div>
-          <div class="field"><label>Age</label><input type="number" id="calAge" value="28"></div>
-        </div>
-        <div class="field-row">
-          <div class="field"><label>Weight (kg)</label><input type="number" id="calWeight" value="65"></div>
-          <div class="field"><label>Height (cm)</label><input type="number" id="calHeight" value="170"></div>
-        </div>
-        <div class="field"><label>Activity level</label>
-          <select id="calActivity">
-            <option value="1.2">Sedentary (little exercise)</option>
-            <option value="1.375" selected>Light (1-3 days/week)</option>
-            <option value="1.55">Moderate (3-5 days/week)</option>
-            <option value="1.725">Active (6-7 days/week)</option>
-            <option value="1.9">Very active (physical job / 2x day)</option>
-          </select>
-        </div>
-        <div class="field"><label>Goal</label>
-          <select id="calGoal">
-            <option value="0">Maintain weight</option>
-            <option value="-250">Mild weight loss</option>
-            <option value="-500">Weight loss</option>
-            <option value="250">Mild weight gain</option>
-            <option value="500">Weight gain</option>
-          </select>
-        </div>
-      </div>
-      <div class="result-panel">
-        <div class="result-big"><div class="num" id="calTarget">—</div><div class="lbl">Target Calories / day</div></div>
-        <div class="result-row"><span>BMR (resting)</span><b id="calBMR">—</b></div>
-        <div class="result-row"><span>TDEE (maintenance)</span><b id="calTDEE">—</b></div>
-        <div class="result-row"><span>Protein (30%)</span><b id="calProtein">—</b></div>
-        <div class="result-row"><span>Carbs (40%)</span><b id="calCarbs">—</b></div>
-        <div class="result-row"><span>Fat (30%)</span><b id="calFat">—</b></div>
-        <p class="note">A general estimate for adults. Not intended for children, or for anyone managing a diagnosed eating or metabolic condition — please consult a professional in those cases.</p>
-      </div>
-    </div>
-  </div>
+<section class="pad" id="calorie">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">🔥</div><div><h2>Calorie Calculator</h2><p>Estimated daily calories using the Mifflin-St Jeor formula.</p></div></div>
+<div class="card tool-body">
+<div>
+<div class="field-row">
+<div class="field"><label>Sex</label><select id="calSex"><option value="m">Male</option><option value="f">Female</option></select></div>
+<div class="field"><label>Age</label><input id="calAge" type="number" value="28"/></div>
+</div>
+<div class="field-row">
+<div class="field"><label>Weight (kg)</label><input id="calWeight" type="number" value="65"/></div>
+<div class="field"><label>Height (cm)</label><input id="calHeight" type="number" value="170"/></div>
+</div>
+<div class="field"><label>Activity level</label>
+<select id="calActivity">
+<option value="1.2">Sedentary (little exercise)</option>
+<option selected="" value="1.375">Light (1-3 days/week)</option>
+<option value="1.55">Moderate (3-5 days/week)</option>
+<option value="1.725">Active (6-7 days/week)</option>
+<option value="1.9">Very active (physical job / 2x day)</option>
+</select>
+</div>
+<div class="field"><label>Goal</label>
+<select id="calGoal">
+<option value="0">Maintain weight</option>
+<option value="-250">Mild weight loss</option>
+<option value="-500">Weight loss</option>
+<option value="250">Mild weight gain</option>
+<option value="500">Weight gain</option>
+</select>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-big"><div class="num" id="calTarget">—</div><div class="lbl">Target Calories / day</div></div>
+<div class="result-row"><span>BMR (resting)</span><b id="calBMR">—</b></div>
+<div class="result-row"><span>TDEE (maintenance)</span><b id="calTDEE">—</b></div>
+<div class="result-row"><span>Protein (30%)</span><b id="calProtein">—</b></div>
+<div class="result-row"><span>Carbs (40%)</span><b id="calCarbs">—</b></div>
+<div class="result-row"><span>Fat (30%)</span><b id="calFat">—</b></div>
+<p class="note">A general estimate for adults. Not intended for children, or for anyone managing a diagnosed eating or metabolic condition — please consult a professional in those cases.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ============ PERIOD ============ -->
-<section id="period" class="pad" style="background:var(--bg-alt);">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">🩸</div><div><h2>Period Tracker Information</h2><p>A simple calendar-based estimate of your next cycle.</p></div></div>
-    <div class="card tool-body">
-      <div>
-        <div class="field"><label>First day of last period</label><input type="date" id="pLastDate"></div>
-        <div class="field-row">
-          <div class="field"><label>Average cycle length (days)</label><input type="number" id="pCycle" value="28"></div>
-          <div class="field"><label>Average period length (days)</label><input type="number" id="pLength" value="5"></div>
-        </div>
-        <button class="btn btn-primary" onclick="calcPeriod()">Calculate</button>
-      </div>
-      <div class="result-panel" id="periodResult">
-        <p class="note" style="margin:0;">Enter your last period's start date to see estimated dates for your next period, fertile window, and ovulation.</p>
-      </div>
-    </div>
-    <p class="note" style="margin-top:14px;max-width:640px;">This is a general calendar estimate, not a medical diagnosis. Cycles vary naturally — if yours is irregular or you have concerns, speak with a doctor or gynaecologist.</p>
-  </div>
+<section class="pad" id="period" style="background:var(--bg-alt);">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">🩸</div><div><h2>Period Tracker Information</h2><p>A simple calendar-based estimate of your next cycle.</p></div></div>
+<div class="card tool-body">
+<div>
+<div class="field"><label>First day of last period</label><input id="pLastDate" type="date"/></div>
+<div class="field-row">
+<div class="field"><label>Average cycle length (days)</label><input id="pCycle" type="number" value="28"/></div>
+<div class="field"><label>Average period length (days)</label><input id="pLength" type="number" value="5"/></div>
+</div>
+<button class="btn btn-primary" onclick="calcPeriod()">Calculate</button>
+</div>
+<div class="result-panel" id="periodResult">
+<p class="note" style="margin:0;">Enter your last period's start date to see estimated dates for your next period, fertile window, and ovulation.</p>
+</div>
+</div>
+<p class="note" style="margin-top:14px;max-width:640px;">This is a general calendar estimate, not a medical diagnosis. Cycles vary naturally — if yours is irregular or you have concerns, speak with a doctor or gynaecologist.</p>
+</div>
 </section>
-
 <!-- ============ PREGNANCY ============ -->
-<section id="pregnancy" class="pad">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">🤰</div><div><h2>Pregnancy Due Date Calculator</h2><p>Estimated due date using Naegele's rule.</p></div></div>
-    <div class="card tool-body">
-      <div>
-        <div class="seg" id="pregModeSeg">
-          <button class="active" data-v="lmp">By last period</button>
-          <button data-v="conception">By conception date</button>
-        </div>
-        <div style="height:16px"></div>
-        <div class="field" id="pregLmpField"><label>First day of last menstrual period</label><input type="date" id="pregLmpDate"></div>
-        <div class="field" id="pregConField" style="display:none;"><label>Conception date</label><input type="date" id="pregConDate"></div>
-        <div class="field" id="pregCycleField"><label>Average cycle length (days)</label><input type="number" id="pregCycle" value="28"></div>
-        <button class="btn btn-primary" onclick="calcPregnancy()">Calculate Due Date</button>
-      </div>
-      <div class="result-panel" id="pregResult">
-        <p class="note" style="margin:0;">Enter a date to estimate your due date, current week of pregnancy, and trimester.</p>
-      </div>
-    </div>
-    <p class="note" style="margin-top:14px;max-width:640px;">Only around 5% of babies are born exactly on their due date — this is an estimate. Please confirm dates and progress with your doctor or midwife.</p>
-  </div>
+<section class="pad" id="pregnancy">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">🤰</div><div><h2>Pregnancy Due Date Calculator</h2><p>Estimated due date using Naegele's rule.</p></div></div>
+<div class="card tool-body">
+<div>
+<div class="seg" id="pregModeSeg">
+<button class="active" data-v="lmp">By last period</button>
+<button data-v="conception">By conception date</button>
+</div>
+<div style="height:16px"></div>
+<div class="field" id="pregLmpField"><label>First day of last menstrual period</label><input id="pregLmpDate" type="date"/></div>
+<div class="field" id="pregConField" style="display:none;"><label>Conception date</label><input id="pregConDate" type="date"/></div>
+<div class="field" id="pregCycleField"><label>Average cycle length (days)</label><input id="pregCycle" type="number" value="28"/></div>
+<button class="btn btn-primary" onclick="calcPregnancy()">Calculate Due Date</button>
+</div>
+<div class="result-panel" id="pregResult">
+<p class="note" style="margin:0;">Enter a date to estimate your due date, current week of pregnancy, and trimester.</p>
+</div>
+</div>
+<p class="note" style="margin-top:14px;max-width:640px;">Only around 5% of babies are born exactly on their due date — this is an estimate. Please confirm dates and progress with your doctor or midwife.</p>
+</div>
 </section>
-
 <!-- ============ SLEEP ============ -->
-<section id="sleep" class="pad" style="background:var(--bg-alt);">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">😴</div><div><h2>Sleep Calculator</h2><p>Time bedtimes or wake-ups to full 90-minute sleep cycles.</p></div></div>
-    <div class="card tool-body">
-      <div>
-        <div class="seg" id="sleepModeSeg">
-          <button class="active" data-v="wake">I need to wake up at…</button>
-          <button data-v="bed">I'm going to bed now</button>
-        </div>
-        <div style="height:16px"></div>
-        <div class="field" id="sleepWakeField"><label>Wake-up time</label><input type="text" id="sleepWakeTime" placeholder="e.g. 07:00" value="07:00"></div>
-        <p class="note">Times are based on 90-minute sleep cycles plus ~15 minutes to fall asleep.</p>
-      </div>
-      <div class="result-panel">
-        <div id="sleepResults"></div>
-      </div>
-    </div>
-  </div>
+<section class="pad" id="sleep" style="background:var(--bg-alt);">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">😴</div><div><h2>Sleep Calculator</h2><p>Time bedtimes or wake-ups to full 90-minute sleep cycles.</p></div></div>
+<div class="card tool-body">
+<div>
+<div class="seg" id="sleepModeSeg">
+<button class="active" data-v="wake">I need to wake up at…</button>
+<button data-v="bed">I'm going to bed now</button>
+</div>
+<div style="height:16px"></div>
+<div class="field" id="sleepWakeField"><label>Wake-up time</label><input id="sleepWakeTime" placeholder="e.g. 07:00" type="text" value="07:00"/></div>
+<p class="note">Times are based on 90-minute sleep cycles plus ~15 minutes to fall asleep.</p>
+</div>
+<div class="result-panel">
+<div id="sleepResults"></div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ============ WALKING ============ -->
-<section id="walking" class="pad">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">🚶</div><div><h2>Walking Calculator</h2><p>Steps to distance, time and calories burned.</p></div></div>
-    <div class="card tool-body">
-      <div>
-        <div class="field"><label>Step count</label><input type="number" id="wSteps" value="8000"></div>
-        <div class="field"><label>Body weight (kg)</label><input type="number" id="wWeight" value="65"></div>
-        <div class="field"><label>Walking pace</label>
-          <select id="wPace">
-            <option value="slow">Slow (~3 km/h)</option>
-            <option value="moderate" selected>Moderate (~5 km/h)</option>
-            <option value="brisk">Brisk (~6.5 km/h)</option>
-          </select>
-        </div>
-      </div>
-      <div class="result-panel">
-        <div class="result-big"><div class="num" id="wCalories">—</div><div class="lbl">Calories burned</div></div>
-        <div class="result-row"><span>Distance</span><b id="wDistance">—</b></div>
-        <div class="result-row"><span>Time walking</span><b id="wTime">—</b></div>
-        <p class="note">Based on average step length and MET values for walking pace — actual burn varies by fitness level and terrain.</p>
-      </div>
-    </div>
-  </div>
+<section class="pad" id="walking">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">🚶</div><div><h2>Walking Calculator</h2><p>Steps to distance, time and calories burned.</p></div></div>
+<div class="card tool-body">
+<div>
+<div class="field"><label>Step count</label><input id="wSteps" type="number" value="8000"/></div>
+<div class="field"><label>Body weight (kg)</label><input id="wWeight" type="number" value="65"/></div>
+<div class="field"><label>Walking pace</label>
+<select id="wPace">
+<option value="slow">Slow (~3 km/h)</option>
+<option selected="" value="moderate">Moderate (~5 km/h)</option>
+<option value="brisk">Brisk (~6.5 km/h)</option>
+</select>
+</div>
+</div>
+<div class="result-panel">
+<div class="result-big"><div class="num" id="wCalories">—</div><div class="lbl">Calories burned</div></div>
+<div class="result-row"><span>Distance</span><b id="wDistance">—</b></div>
+<div class="result-row"><span>Time walking</span><b id="wTime">—</b></div>
+<p class="note">Based on average step length and MET values for walking pace — actual burn varies by fitness level and terrain.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ============ FITNESS PLANNER ============ -->
-<section id="fitness" class="pad" style="background:var(--bg-alt);">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">🏋️</div><div><h2>Fitness Planner</h2><p>A weekly workout plan based on your goal and schedule.</p></div></div>
-    <div class="card" style="padding:30px;">
-      <div class="field-row" style="margin-bottom:6px;">
-        <div class="field"><label>Goal</label>
-          <select id="fGoal">
-            <option value="fatloss">Fat loss</option>
-            <option value="muscle">Muscle gain</option>
-            <option value="general" selected>General fitness</option>
-            <option value="endurance">Endurance</option>
-          </select>
-        </div>
-        <div class="field"><label>Days available per week</label>
-          <select id="fDays">
-            <option value="3">3 days</option>
-            <option value="4" selected>4 days</option>
-            <option value="5">5 days</option>
-            <option value="6">6 days</option>
-          </select>
-        </div>
-      </div>
-      <button class="btn btn-primary" onclick="buildPlan()">Build My Plan</button>
-      <div id="planOutput" style="margin-top:20px;"></div>
-      <p class="note">A general template to guide your week — adjust intensity to your fitness level, and check with a professional before starting a new programme.</p>
-    </div>
-  </div>
+<section class="pad" id="fitness" style="background:var(--bg-alt);">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">🏋️</div><div><h2>Fitness Planner</h2><p>A weekly workout plan based on your goal and schedule.</p></div></div>
+<div class="card" style="padding:30px;">
+<div class="field-row" style="margin-bottom:6px;">
+<div class="field"><label>Goal</label>
+<select id="fGoal">
+<option value="fatloss">Fat loss</option>
+<option value="muscle">Muscle gain</option>
+<option selected="" value="general">General fitness</option>
+<option value="endurance">Endurance</option>
+</select>
+</div>
+<div class="field"><label>Days available per week</label>
+<select id="fDays">
+<option value="3">3 days</option>
+<option selected="" value="4">4 days</option>
+<option value="5">5 days</option>
+<option value="6">6 days</option>
+</select>
+</div>
+</div>
+<button class="btn btn-primary" onclick="buildPlan()">Build My Plan</button>
+<div id="planOutput" style="margin-top:20px;"></div>
+<p class="note">A general template to guide your week — adjust intensity to your fitness level, and check with a professional before starting a new programme.</p>
+</div>
+</div>
 </section>
-
 <!-- ============ RECIPES ============ -->
-<section id="recipes" class="pad">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">🥗</div><div><h2>Healthy Recipes</h2><p>Simple, balanced meals — tap a card for ingredients and steps.</p></div></div>
-    <div class="recipe-grid" id="recipeGrid"></div>
-  </div>
+<section class="pad" id="recipes">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">🥗</div><div><h2>Healthy Recipes</h2><p>Simple, balanced meals — tap a card for ingredients and steps.</p></div></div>
+<div class="recipe-grid" id="recipeGrid"></div>
+</div>
 </section>
-
 <!-- ============ DICTIONARY ============ -->
-<section id="dictionary" class="pad" style="background:var(--bg-alt);">
-  <div class="wrap">
-    <div class="shead"><div class="ic-badge">📖</div><div><h2>Medical Abbreviation Dictionary</h2><p>Look up common medical shorthand used on charts and prescriptions.</p></div></div>
-    <div class="card" style="padding:26px;">
-      <input type="text" class="dict-search" id="dictSearch" placeholder="Search e.g. BP, Rx, NPO…" oninput="renderDict()">
-      <div class="dict-list" id="dictList"></div>
-    </div>
-  </div>
+<section class="pad" id="dictionary" style="background:var(--bg-alt);">
+<div class="wrap">
+<div class="shead"><div class="ic-badge">📖</div><div><h2>Medical Abbreviation Dictionary</h2><p>Look up common medical shorthand used on charts and prescriptions.</p></div></div>
+<div class="card" style="padding:26px;">
+<input class="dict-search" id="dictSearch" oninput="renderDict()" placeholder="Search e.g. BP, Rx, NPO…" type="text"/>
+<div class="dict-list" id="dictList"></div>
+</div>
+</div>
 </section>
-
 <footer>
-  <div class="wrap">
-    <div class="foot-disclaimer">
-      <b>A note on these tools:</b> Everything on this page runs general, publicly-known formulas (BMI, Mifflin-St Jeor, Naegele's rule, sleep cycles, MET values) for everyday planning. None of it is a medical diagnosis or a substitute for professional care — please consult a doctor, dietitian, or qualified specialist for anything specific to your health.
+<div class="wrap">
+<div class="foot-disclaimer">
+<b>A note on these tools:</b> Everything on this page runs general, publicly-known formulas (BMI, Mifflin-St Jeor, Naegele's rule, sleep cycles, MET values) for everyday planning. None of it is a medical diagnosis or a substitute for professional care — please consult a doctor, dietitian, or qualified specialist for anything specific to your health.
     </div>
-    <div class="foot-row">
-      <span>© 2026 Vitanest. Built for everyday wellness.</span>
-      <span>All calculations run locally in your browser — nothing is uploaded.</span>
-    </div>
-  </div>
-</footer>
-
+<div class="foot-row">
+<span>© 2026 Vitanest. Built for everyday wellness.</span>
+<span>All calculations run locally in your browser — nothing is uploaded.</span>
+</div>
+</div>
+<p>Email: contact.to.arixa@gmail.com</p></footer>
 <script>
 /* THEME */
 const root = document.documentElement;
@@ -760,5 +746,5 @@ function renderDict(){
 }
 renderDict();
 </script>
-</body>
+<section id="about"><h1>About Health Toolkit</h1><p>We provide free health calculators and educational tools.</p><p>Mission: make everyday health information accessible.</p><p><a href="index_updated.html">Home</a></p></section><section id="contact"><h1>Contact Us</h1><p>Email: contact.to.arixa@gmail.com</p><form><input placeholder="Name"/><input placeholder="Email"/><textarea placeholder="Message"></textarea><button>Send</button></form></section><section id="privacy"><h1>Privacy Policy</h1><p>We collect minimal information required to operate the website. Analytics, cookies and advertising partners may process data according to their own policies. Contact: contact.to.arixa@gmail.com</p></section></body>
 </html>
