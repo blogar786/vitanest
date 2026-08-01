@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vitanest — Your Everyday Health Toolkit</title>
+<meta name="description" content="BMI, water intake, calorie, period, pregnancy, sleep, walking calculators, fitness planner, healthy recipes and a medical abbreviation dictionary — all in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F7F3; --bg-alt:#EAF0E8; --card:#FFFFFF;
+    --ink:#132019; --ink-soft:#57665C; --ink-faint:#8B9A8F;
+    --line:rgba(19,32,25,.12); --line-strong:rgba(19,32,25,.22);
+    --accent:#2B6E5C; --accent-ink:#0F3B30; --accent-soft:rgba(43,110,92,.12);
+    --amber:#D99A3D; --amber-soft:rgba(217,154,61,.16);
+    --rose:#C25B4A; --rose-soft:rgba(194,91,74,.13);
+    --blue:#3B6EA8; --blue-soft:rgba(59,110,168,.13);
+    --radius-lg:22px; --radius-md:14px; --radius-sm:9px;
+    --shadow-lg:0 26px 64px -28px rgba(19,32,25,.28);
+    --shadow-sm:0 10px 24px -14px rgba(19,32,25,.22);
+    --font-display:'Sora', sans-serif; --font-body:'Inter', -apple-system, sans-serif; --font-mono:'IBM Plex Mono', monospace;
+  }
+  [data-theme="dark"]{
+    --bg:#0D1512; --bg-alt:#111C16; --card:#141F19;
+    --ink:#EBF2ED; --ink-soft:#9DAEA3; --ink-faint:#5E6D64;
+    --line:rgba(255,255,255,.10); --line-strong:rgba(255,255,255,.18);
+    --accent:#4FBE9F; --accent-ink:#BFF0DE; --accent-soft:rgba(79,190,159,.15);
+    --amber:#E8B65C; --amber-soft:rgba(232,182,92,.14);
+    --rose:#E08574; --rose-soft:rgba(224,133,116,.14);
+    --blue:#7AA6DE; --blue-soft:rgba(122,166,222,.14);
+    --shadow-lg:0 26px 70px -28px rgba(0,0,0,.6); --shadow-sm:0 10px 24px -14px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.55; -webkit-font-smoothing:antialiased; transition:background .35s,color .35s;}
+  h1,h2,h3,h4,.disp{font-family:var(--font-display); letter-spacing:-0.01em;}
+  .mono{font-family:var(--font-mono);}
+  a{color:inherit;} img{max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  section.pad{padding:76px 0;}
+  ::selection{background:var(--accent); color:#fff;}
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm);}
+
+  /* NAV */
+  #topnav{position:sticky; top:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:14px 28px; background:color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter:blur(14px); border-bottom:1px solid var(--line);}
+  .brand{display:flex; align-items:center; gap:9px; font-family:var(--font-display); font-weight:700; font-size:1.2rem;}
+  .brand .dot{width:11px; height:11px; border-radius:3px; background:var(--accent); transform:rotate(45deg);}
+  .theme-toggle{width:50px; height:27px; border-radius:99px; border:1px solid var(--line-strong); background:var(--card); position:relative; cursor:pointer;}
+  .theme-toggle .knob{position:absolute; top:2px; left:2px; width:21px; height:21px; border-radius:50%; background:var(--accent); transition:transform .28s; display:flex; align-items:center; justify-content:center; font-size:11px;}
+  [data-theme="dark"] .theme-toggle .knob{transform:translateX(23px);}
+  .btn{display:inline-flex; align-items:center; gap:7px; padding:11px 20px; border-radius:99px; font-weight:600; font-size:.87rem; border:1px solid transparent; cursor:pointer; transition:.2s;}
+  .btn-primary{background:var(--accent); color:#fff;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:var(--shadow-sm);}
+  .btn-ghost{background:transparent; border-color:var(--line-strong);}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+
+  /* quick nav chips */
+  #quicknav{position:sticky; top:57px; z-index:190; background:var(--bg); border-bottom:1px solid var(--line); overflow-x:auto; white-space:nowrap; padding:12px 28px; scrollbar-width:thin;}
+  #quicknav a{display:inline-flex; align-items:center; gap:6px; font-size:.8rem; font-weight:600; color:var(--ink-soft); background:var(--card); border:1px solid var(--line); padding:8px 14px; border-radius:99px; margin-right:8px;}
+  #quicknav a:hover{color:var(--accent); border-color:var(--accent);}
+
+  /* HERO */
+  #hero{padding:64px 0 40px;}
+  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:6px 13px; border-radius:99px; margin-bottom:18px;}
+  h1.headline{font-size:clamp(2rem,4vw,3.1rem); font-weight:800; line-height:1.1; margin:0 0 16px; max-width:760px;}
+  h1.headline span{color:var(--accent);}
+  .sub{font-size:1.02rem; color:var(--ink-soft); max-width:600px; margin:0 0 8px;}
+  .disclaimer-tag{font-size:.78rem; color:var(--ink-faint); margin-top:14px; max-width:620px;}
+
+  /* tool overview grid */
+  .tool-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:36px;}
+  .tool-tile{padding:20px 16px; text-align:center; cursor:pointer; transition:transform .18s;}
+  .tool-tile:hover{transform:translateY(-4px);}
+  .tool-tile .ic{width:30px; height:30px; margin:0 auto 12px; color:var(--accent);}
+  .tool-tile span{font-size:.82rem; font-weight:600; display:block;}
+
+  /* section head */
+  .shead{display:flex; align-items:center; gap:12px; margin-bottom:26px;}
+  .shead .ic-badge{width:42px; height:42px; border-radius:12px; background:var(--accent-soft); display:flex; align-items:center; justify-content:center; color:var(--accent); flex-shrink:0;}
+  .shead h2{font-size:1.5rem; margin:0;}
+  .shead p{margin:2px 0 0; color:var(--ink-soft); font-size:.88rem;}
+
+  .tool-body{padding:30px; display:grid; grid-template-columns:1fr 1fr; gap:34px;}
+  .tool-body.single{grid-template-columns:1fr; max-width:640px;}
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px;}
+  .field label{font-size:.78rem; font-weight:600; color:var(--ink-soft);}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  input[type=number], input[type=date], input[type=text], select{
+    font-family:var(--font-body); font-size:.9rem; padding:11px 13px; border-radius:var(--radius-sm);
+    border:1px solid var(--line-strong); background:var(--bg); color:var(--ink); width:100%;
+  }
+  .seg{display:flex; border:1px solid var(--line-strong); border-radius:99px; overflow:hidden; width:fit-content;}
+  .seg button{border:none; background:transparent; padding:8px 16px; font-size:.8rem; font-weight:600; cursor:pointer; color:var(--ink-soft);}
+  .seg button.active{background:var(--accent); color:#fff;}
+
+  .result-panel{background:var(--bg-alt); border-radius:var(--radius-md); padding:22px; display:flex; flex-direction:column; gap:14px; justify-content:center;}
+  .result-big{text-align:center;}
+  .result-big .num{font-family:var(--font-display); font-size:2.4rem; font-weight:800; color:var(--accent);}
+  .result-big .lbl{font-size:.78rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;}
+  .result-row{display:flex; justify-content:space-between; font-size:.86rem; padding:8px 0; border-bottom:1px dashed var(--line);}
+  .result-row:last-child{border-bottom:none;}
+  .result-row b{font-family:var(--font-mono);}
+  .badge{display:inline-block; padding:5px 12px; border-radius:99px; font-size:.76rem; font-weight:700;}
+  .badge.green{background:var(--accent-soft); color:var(--accent);}
+  .badge.amber{background:var(--amber-soft); color:var(--amber);}
+  .badge.rose{background:var(--rose-soft); color:var(--rose);}
+  .badge.blue{background:var(--blue-soft); color:var(--blue);}
+
+  .gauge{height:12px; border-radius:99px; background:linear-gradient(90deg, var(--blue) 0 20%, var(--accent) 20% 50%, var(--amber) 50% 75%, var(--rose) 75% 100%); position:relative; margin:16px 0 6px;}
+  .gauge .marker{position:absolute; top:-5px; width:3px; height:22px; background:var(--ink); border-radius:2px; transition:left .3s;}
+  .gauge-labels{display:flex; justify-content:space-between; font-size:.68rem; color:var(--ink-faint);}
+
+  .note{font-size:.78rem; color:var(--ink-faint); margin-top:10px; line-height:1.5;}
+
+  /* recipes */
+  .recipe-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+  .recipe-card{padding:20px; cursor:pointer;}
+  .recipe-card h4{margin:0 0 6px; font-size:1rem;}
+  .recipe-tags{display:flex; gap:6px; margin:8px 0; flex-wrap:wrap;}
+  .recipe-tags span{font-size:.68rem; background:var(--accent-soft); color:var(--accent); padding:3px 9px; border-radius:99px; font-weight:600;}
+  .recipe-card .kcal{font-family:var(--font-mono); font-size:.78rem; color:var(--ink-faint);}
+  .recipe-detail{display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--line); font-size:.82rem; color:var(--ink-soft);}
+  .recipe-card.open .recipe-detail{display:block;}
+  .recipe-detail ul{margin:6px 0; padding-left:18px;}
+
+  /* fitness planner table */
+  table.plan{width:100%; border-collapse:collapse; margin-top:10px;}
+  table.plan th{text-align:left; font-size:.72rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); padding:8px; border-bottom:1.5px solid var(--line-strong);}
+  table.plan td{padding:11px 8px; font-size:.86rem; border-bottom:1px solid var(--line);}
+  table.plan tr:last-child td{border-bottom:none;}
+
+  /* dictionary */
+  .dict-search{margin-bottom:16px;}
+  .dict-list{max-height:420px; overflow-y:auto; border:1px solid var(--line); border-radius:var(--radius-md);}
+  .dict-row{display:flex; padding:11px 16px; border-bottom:1px solid var(--line); font-size:.86rem; gap:14px;}
+  .dict-row:last-child{border-bottom:none;}
+  .dict-row .ab{font-family:var(--font-mono); font-weight:700; color:var(--accent); min-width:78px;}
+  .dict-empty{padding:24px; text-align:center; color:var(--ink-faint); font-size:.86rem;}
+
+  footer{padding:50px 0 34px; border-top:1px solid var(--line); margin-top:20px;}
+  .foot-row{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:.8rem; color:var(--ink-faint);}
+  .foot-disclaimer{background:var(--bg-alt); border-radius:var(--radius-md); padding:18px 22px; font-size:.8rem; color:var(--ink-soft); margin-bottom:26px;}
+
+  @media (max-width:980px){
+    .tool-grid{grid-template-columns:repeat(3,1fr);}
+    .tool-body{grid-template-columns:1fr;}
+    .recipe-grid{grid-template-columns:repeat(2,1fr);}
+    .field-row{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 16px;}
+    .tool-grid{grid-template-columns:repeat(2,1fr);}
+    .recipe-grid{grid-template-columns:1fr;}
+    #topnav{padding:12px 16px;} #quicknav{padding:10px 16px; top:53px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important;}}
+</style>
+</head>
+<body>
+
+<nav id="topnav">
+  <div class="brand"><span class="dot"></span>Vitanest</div>
+  <div style="display:flex; align-items:center; gap:14px;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="knob">☾</span></button>
+    <a href="#bmi" class="btn btn-primary">Start with BMI</a>
+  </div>
+</nav>
+
+<div id="quicknav">
+  <a href="#bmi">⚖️ BMI</a>
+  <a href="#water">💧 Water</a>
+  <a href="#calorie">🔥 Calories</a>
+  <a href="#period">🩸 Period Info</a>
+  <a href="#pregnancy">🤰 Due Date</a>
+  <a href="#sleep">😴 Sleep</a>
+  <a href="#walking">🚶 Walking</a>
+  <a href="#fitness">🏋️ Fitness Plan</a>
+  <a href="#recipes">🥗 Recipes</a>
+  <a href="#dictionary">📖 Med. Dictionary</a>
+</div>
+
+<section id="hero">
+  <div class="wrap">
+    <div class="eyebrow">10 tools · 1 page · no sign-up</div>
+    <h1 class="headline">Your everyday <span>health toolkit</span>, all in one place.</h1>
+    <p class="sub">BMI, water, calories, sleep, walking, fitness planning, pregnancy and period estimates, healthy recipes, and a medical term lookup — calculated instantly, right in your browser.</p>
+    <p class="disclaimer-tag">These tools give general wellness estimates for everyday use. They are not medical advice — for anything health-related, please check with a doctor or qualified professional.</p>
+
+    <div class="tool-grid">
+      <a href="#bmi" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M8 14l3-4 2 3 3-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>BMI Calculator</span></a>
+      <a href="#water" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M12 3s7 7.6 7 12a7 7 0 11-14 0c0-4.4 7-12 7-12z" stroke="currentColor" stroke-width="1.6"/></svg><span>Water Intake</span></a>
+      <a href="#calorie" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M12 3c1 3-2 4-2 7a3 3 0 006 0c0-1.3-.7-2-1-3 2 1 3 3.5 3 6a6 6 0 11-12 0c0-4 3.5-7 6-10z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Calorie Calculator</span></a>
+      <a href="#period" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5" stroke="currentColor" stroke-width="1.6"/><path d="M12 14v7M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Period Tracker Info</span></a>
+      <a href="#pregnancy" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Pregnancy Due Date</span></a>
+      <a href="#sleep" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M15 3a7 7 0 100 18 8 8 0 01-8-8 8 8 0 018-10z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Sleep Calculator</span></a>
+      <a href="#walking" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><circle cx="14" cy="5" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M11 22l2-6 2 2 2 4M9 13l2-4 3 1 2-3M11 9L8 8l-2 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Walking Calculator</span></a>
+      <a href="#fitness" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M4 12h2M18 12h2M6 12h12M8 8v8M16 8v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Fitness Planner</span></a>
+      <a href="#recipes" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M5 10a7 7 0 0114 0v0H5z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M4 10h16M12 3v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Healthy Recipes</span></a>
+      <a href="#dictionary" class="card tool-tile"><svg class="ic" viewBox="0 0 24 24" fill="none"><path d="M5 4h9a3 3 0 013 3v13H8a3 3 0 01-3-3V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M17 20a3 3 0 003-3V6" stroke="currentColor" stroke-width="1.6"/></svg><span>Med. Dictionary</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BMI ============ -->
+<section id="bmi" class="pad">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">⚖️</div><div><h2>BMI Calculator</h2><p>Body Mass Index from your height and weight.</p></div></div>
+    <div class="card tool-body">
+      <div>
+        <div class="seg" id="bmiUnitSeg">
+          <button class="active" data-v="metric">Metric (cm/kg)</button>
+          <button data-v="imperial">Imperial (ft/lb)</button>
+        </div>
+        <div style="height:16px"></div>
+        <div id="bmiMetricFields">
+          <div class="field"><label>Height (cm)</label><input type="number" id="bmiHeightCm" value="170"></div>
+          <div class="field"><label>Weight (kg)</label><input type="number" id="bmiWeightKg" value="65"></div>
+        </div>
+        <div id="bmiImperialFields" style="display:none;">
+          <div class="field-row">
+            <div class="field"><label>Height (ft)</label><input type="number" id="bmiHeightFt" value="5"></div>
+            <div class="field"><label>Height (in)</label><input type="number" id="bmiHeightIn" value="7"></div>
+          </div>
+          <div class="field"><label>Weight (lb)</label><input type="number" id="bmiWeightLb" value="143"></div>
+        </div>
+      </div>
+      <div class="result-panel">
+        <div class="result-big"><div class="num" id="bmiValue">—</div><div class="lbl">Your BMI</div></div>
+        <div style="text-align:center;"><span class="badge green" id="bmiCategory">—</span></div>
+        <div class="gauge"><div class="marker" id="bmiMarker" style="left:0%"></div></div>
+        <div class="gauge-labels"><span>Underweight</span><span>Normal</span><span>Overweight</span><span>Obese</span></div>
+        <p class="note">BMI is a general screening measure and doesn't account for muscle mass, frame size, age, or pregnancy. Use it as a starting point, not a diagnosis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATER ============ -->
+<section id="water" class="pad" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">💧</div><div><h2>Water Intake Calculator</h2><p>An everyday hydration target based on your weight and activity.</p></div></div>
+    <div class="card tool-body">
+      <div>
+        <div class="field"><label>Weight (kg)</label><input type="number" id="waterWeight" value="65"></div>
+        <div class="field"><label>Activity level</label>
+          <select id="waterActivity">
+            <option value="0">Mostly sitting</option>
+            <option value="350" selected>Light activity (some walking)</option>
+            <option value="700">Moderate exercise</option>
+            <option value="1000">Intense training</option>
+          </select>
+        </div>
+        <div class="field"><label><input type="checkbox" id="waterHot" style="width:auto; margin-right:8px;">Hot / humid climate</label></div>
+      </div>
+      <div class="result-panel">
+        <div class="result-big"><div class="num" id="waterLiters">—</div><div class="lbl">Litres per day</div></div>
+        <div class="result-row"><span>Approx. glasses (250ml)</span><b id="waterGlasses">—</b></div>
+        <div class="result-row"><span>Approx. bottles (500ml)</span><b id="waterBottles">—</b></div>
+        <p class="note">Includes water from food and other drinks. Increase intake further if you're unwell, pregnant, or breastfeeding — ask your doctor for a personalised target.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALORIE ============ -->
+<section id="calorie" class="pad">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">🔥</div><div><h2>Calorie Calculator</h2><p>Estimated daily calories using the Mifflin-St Jeor formula.</p></div></div>
+    <div class="card tool-body">
+      <div>
+        <div class="field-row">
+          <div class="field"><label>Sex</label><select id="calSex"><option value="m">Male</option><option value="f">Female</option></select></div>
+          <div class="field"><label>Age</label><input type="number" id="calAge" value="28"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Weight (kg)</label><input type="number" id="calWeight" value="65"></div>
+          <div class="field"><label>Height (cm)</label><input type="number" id="calHeight" value="170"></div>
+        </div>
+        <div class="field"><label>Activity level</label>
+          <select id="calActivity">
+            <option value="1.2">Sedentary (little exercise)</option>
+            <option value="1.375" selected>Light (1-3 days/week)</option>
+            <option value="1.55">Moderate (3-5 days/week)</option>
+            <option value="1.725">Active (6-7 days/week)</option>
+            <option value="1.9">Very active (physical job / 2x day)</option>
+          </select>
+        </div>
+        <div class="field"><label>Goal</label>
+          <select id="calGoal">
+            <option value="0">Maintain weight</option>
+            <option value="-250">Mild weight loss</option>
+            <option value="-500">Weight loss</option>
+            <option value="250">Mild weight gain</option>
+            <option value="500">Weight gain</option>
+          </select>
+        </div>
+      </div>
+      <div class="result-panel">
+        <div class="result-big"><div class="num" id="calTarget">—</div><div class="lbl">Target Calories / day</div></div>
+        <div class="result-row"><span>BMR (resting)</span><b id="calBMR">—</b></div>
+        <div class="result-row"><span>TDEE (maintenance)</span><b id="calTDEE">—</b></div>
+        <div class="result-row"><span>Protein (30%)</span><b id="calProtein">—</b></div>
+        <div class="result-row"><span>Carbs (40%)</span><b id="calCarbs">—</b></div>
+        <div class="result-row"><span>Fat (30%)</span><b id="calFat">—</b></div>
+        <p class="note">A general estimate for adults. Not intended for children, or for anyone managing a diagnosed eating or metabolic condition — please consult a professional in those cases.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PERIOD ============ -->
+<section id="period" class="pad" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">🩸</div><div><h2>Period Tracker Information</h2><p>A simple calendar-based estimate of your next cycle.</p></div></div>
+    <div class="card tool-body">
+      <div>
+        <div class="field"><label>First day of last period</label><input type="date" id="pLastDate"></div>
+        <div class="field-row">
+          <div class="field"><label>Average cycle length (days)</label><input type="number" id="pCycle" value="28"></div>
+          <div class="field"><label>Average period length (days)</label><input type="number" id="pLength" value="5"></div>
+        </div>
+        <button class="btn btn-primary" onclick="calcPeriod()">Calculate</button>
+      </div>
+      <div class="result-panel" id="periodResult">
+        <p class="note" style="margin:0;">Enter your last period's start date to see estimated dates for your next period, fertile window, and ovulation.</p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px;max-width:640px;">This is a general calendar estimate, not a medical diagnosis. Cycles vary naturally — if yours is irregular or you have concerns, speak with a doctor or gynaecologist.</p>
+  </div>
+</section>
+
+<!-- ============ PREGNANCY ============ -->
+<section id="pregnancy" class="pad">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">🤰</div><div><h2>Pregnancy Due Date Calculator</h2><p>Estimated due date using Naegele's rule.</p></div></div>
+    <div class="card tool-body">
+      <div>
+        <div class="seg" id="pregModeSeg">
+          <button class="active" data-v="lmp">By last period</button>
+          <button data-v="conception">By conception date</button>
+        </div>
+        <div style="height:16px"></div>
+        <div class="field" id="pregLmpField"><label>First day of last menstrual period</label><input type="date" id="pregLmpDate"></div>
+        <div class="field" id="pregConField" style="display:none;"><label>Conception date</label><input type="date" id="pregConDate"></div>
+        <div class="field" id="pregCycleField"><label>Average cycle length (days)</label><input type="number" id="pregCycle" value="28"></div>
+        <button class="btn btn-primary" onclick="calcPregnancy()">Calculate Due Date</button>
+      </div>
+      <div class="result-panel" id="pregResult">
+        <p class="note" style="margin:0;">Enter a date to estimate your due date, current week of pregnancy, and trimester.</p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px;max-width:640px;">Only around 5% of babies are born exactly on their due date — this is an estimate. Please confirm dates and progress with your doctor or midwife.</p>
+  </div>
+</section>
+
+<!-- ============ SLEEP ============ -->
+<section id="sleep" class="pad" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">😴</div><div><h2>Sleep Calculator</h2><p>Time bedtimes or wake-ups to full 90-minute sleep cycles.</p></div></div>
+    <div class="card tool-body">
+      <div>
+        <div class="seg" id="sleepModeSeg">
+          <button class="active" data-v="wake">I need to wake up at…</button>
+          <button data-v="bed">I'm going to bed now</button>
+        </div>
+        <div style="height:16px"></div>
+        <div class="field" id="sleepWakeField"><label>Wake-up time</label><input type="text" id="sleepWakeTime" placeholder="e.g. 07:00" value="07:00"></div>
+        <p class="note">Times are based on 90-minute sleep cycles plus ~15 minutes to fall asleep.</p>
+      </div>
+      <div class="result-panel">
+        <div id="sleepResults"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WALKING ============ -->
+<section id="walking" class="pad">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">🚶</div><div><h2>Walking Calculator</h2><p>Steps to distance, time and calories burned.</p></div></div>
+    <div class="card tool-body">
+      <div>
+        <div class="field"><label>Step count</label><input type="number" id="wSteps" value="8000"></div>
+        <div class="field"><label>Body weight (kg)</label><input type="number" id="wWeight" value="65"></div>
+        <div class="field"><label>Walking pace</label>
+          <select id="wPace">
+            <option value="slow">Slow (~3 km/h)</option>
+            <option value="moderate" selected>Moderate (~5 km/h)</option>
+            <option value="brisk">Brisk (~6.5 km/h)</option>
+          </select>
+        </div>
+      </div>
+      <div class="result-panel">
+        <div class="result-big"><div class="num" id="wCalories">—</div><div class="lbl">Calories burned</div></div>
+        <div class="result-row"><span>Distance</span><b id="wDistance">—</b></div>
+        <div class="result-row"><span>Time walking</span><b id="wTime">—</b></div>
+        <p class="note">Based on average step length and MET values for walking pace — actual burn varies by fitness level and terrain.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FITNESS PLANNER ============ -->
+<section id="fitness" class="pad" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">🏋️</div><div><h2>Fitness Planner</h2><p>A weekly workout plan based on your goal and schedule.</p></div></div>
+    <div class="card" style="padding:30px;">
+      <div class="field-row" style="margin-bottom:6px;">
+        <div class="field"><label>Goal</label>
+          <select id="fGoal">
+            <option value="fatloss">Fat loss</option>
+            <option value="muscle">Muscle gain</option>
+            <option value="general" selected>General fitness</option>
+            <option value="endurance">Endurance</option>
+          </select>
+        </div>
+        <div class="field"><label>Days available per week</label>
+          <select id="fDays">
+            <option value="3">3 days</option>
+            <option value="4" selected>4 days</option>
+            <option value="5">5 days</option>
+            <option value="6">6 days</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="buildPlan()">Build My Plan</button>
+      <div id="planOutput" style="margin-top:20px;"></div>
+      <p class="note">A general template to guide your week — adjust intensity to your fitness level, and check with a professional before starting a new programme.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECIPES ============ -->
+<section id="recipes" class="pad">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">🥗</div><div><h2>Healthy Recipes</h2><p>Simple, balanced meals — tap a card for ingredients and steps.</p></div></div>
+    <div class="recipe-grid" id="recipeGrid"></div>
+  </div>
+</section>
+
+<!-- ============ DICTIONARY ============ -->
+<section id="dictionary" class="pad" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="shead"><div class="ic-badge">📖</div><div><h2>Medical Abbreviation Dictionary</h2><p>Look up common medical shorthand used on charts and prescriptions.</p></div></div>
+    <div class="card" style="padding:26px;">
+      <input type="text" class="dict-search" id="dictSearch" placeholder="Search e.g. BP, Rx, NPO…" oninput="renderDict()">
+      <div class="dict-list" id="dictList"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-disclaimer">
+      <b>A note on these tools:</b> Everything on this page runs general, publicly-known formulas (BMI, Mifflin-St Jeor, Naegele's rule, sleep cycles, MET values) for everyday planning. None of it is a medical diagnosis or a substitute for professional care — please consult a doctor, dietitian, or qualified specialist for anything specific to your health.
+    </div>
+    <div class="foot-row">
+      <span>© 2026 Vitanest. Built for everyday wellness.</span>
+      <span>All calculations run locally in your browser — nothing is uploaded.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* THEME */
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+function setTheme(t){ root.setAttribute('data-theme', t); themeToggle.querySelector('.knob').textContent = t==='dark' ? '✦' : '☾'; localStorage.setItem('vitanest-theme', t); }
+setTheme(localStorage.getItem('vitanest-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light'));
+themeToggle.addEventListener('click', ()=> setTheme(root.getAttribute('data-theme')==='dark' ? 'light':'dark'));
+
+/* generic segmented control binder */
+function bindSeg(id, onChange){
+  const seg = document.getElementById(id);
+  seg.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      seg.querySelectorAll('button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      onChange(b.dataset.v);
+    });
+  });
+}
+
+/* ============ BMI ============ */
+let bmiUnit = 'metric';
+bindSeg('bmiUnitSeg', (v)=>{
+  bmiUnit = v;
+  document.getElementById('bmiMetricFields').style.display = v==='metric' ? 'block':'none';
+  document.getElementById('bmiImperialFields').style.display = v==='imperial' ? 'block':'none';
+  calcBMI();
+});
+function calcBMI(){
+  let heightM, weightKg;
+  if(bmiUnit==='metric'){
+    heightM = (parseFloat(document.getElementById('bmiHeightCm').value)||0)/100;
+    weightKg = parseFloat(document.getElementById('bmiWeightKg').value)||0;
+  } else {
+    const ft = parseFloat(document.getElementById('bmiHeightFt').value)||0;
+    const inch = parseFloat(document.getElementById('bmiHeightIn').value)||0;
+    heightM = ((ft*12)+inch)*0.0254;
+    weightKg = (parseFloat(document.getElementById('bmiWeightLb').value)||0)*0.453592;
+  }
+  if(heightM<=0 || weightKg<=0){ document.getElementById('bmiValue').textContent='—'; return; }
+  const bmi = weightKg/(heightM*heightM);
+  document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+  let cat, cls;
+  if(bmi<18.5){cat='Underweight'; cls='blue';}
+  else if(bmi<25){cat='Normal range'; cls='green';}
+  else if(bmi<30){cat='Overweight'; cls='amber';}
+  else {cat='Obese'; cls='rose';}
+  const badge = document.getElementById('bmiCategory');
+  badge.textContent = cat; badge.className = 'badge '+cls;
+  const pct = Math.min(Math.max((bmi-15)/(40-15)*100,0),100);
+  document.getElementById('bmiMarker').style.left = pct+'%';
+}
+document.querySelectorAll('#bmiMetricFields input, #bmiImperialFields input').forEach(el=>el.addEventListener('input', calcBMI));
+calcBMI();
+
+/* ============ WATER ============ */
+function calcWater(){
+  const w = parseFloat(document.getElementById('waterWeight').value)||0;
+  const activity = parseFloat(document.getElementById('waterActivity').value)||0;
+  const hot = document.getElementById('waterHot').checked ? 350:0;
+  const ml = w*33 + activity + hot;
+  const liters = ml/1000;
+  document.getElementById('waterLiters').textContent = liters.toFixed(2);
+  document.getElementById('waterGlasses').textContent = Math.round(ml/250)+' glasses';
+  document.getElementById('waterBottles').textContent = Math.round(ml/500)+' bottles';
+}
+['waterWeight','waterActivity'].forEach(id=>document.getElementById(id).addEventListener('input', calcWater));
+document.getElementById('waterActivity').addEventListener('change', calcWater);
+document.getElementById('waterHot').addEventListener('change', calcWater);
+calcWater();
+
+/* ============ CALORIE ============ */
+function calcCalorie(){
+  const sex = document.getElementById('calSex').value;
+  const age = parseFloat(document.getElementById('calAge').value)||0;
+  const weight = parseFloat(document.getElementById('calWeight').value)||0;
+  const height = parseFloat(document.getElementById('calHeight').value)||0;
+  const act = parseFloat(document.getElementById('calActivity').value)||1.2;
+  const goal = parseFloat(document.getElementById('calGoal').value)||0;
+  let bmr = 10*weight + 6.25*height - 5*age + (sex==='m' ? 5 : -161);
+  bmr = Math.max(bmr,0);
+  const tdee = bmr*act;
+  const target = Math.max(tdee+goal, 0);
+  document.getElementById('calBMR').textContent = Math.round(bmr)+' kcal';
+  document.getElementById('calTDEE').textContent = Math.round(tdee)+' kcal';
+  document.getElementById('calTarget').textContent = Math.round(target);
+  document.getElementById('calProtein').textContent = Math.round(target*0.30/4)+' g';
+  document.getElementById('calCarbs').textContent = Math.round(target*0.40/4)+' g';
+  document.getElementById('calFat').textContent = Math.round(target*0.30/9)+' g';
+}
+['calSex','calAge','calWeight','calHeight','calActivity','calGoal'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', calcCalorie);
+  document.getElementById(id).addEventListener('change', calcCalorie);
+});
+calcCalorie();
+
+/* ============ PERIOD ============ */
+function calcPeriod(){
+  const lastVal = document.getElementById('pLastDate').value;
+  const cycle = parseInt(document.getElementById('pCycle').value)||28;
+  const len = parseInt(document.getElementById('pLength').value)||5;
+  const panel = document.getElementById('periodResult');
+  if(!lastVal){ panel.innerHTML = '<p class="note" style="margin:0;">Please select the first day of your last period.</p>'; return; }
+  const last = new Date(lastVal+'T00:00:00');
+  const next = new Date(last); next.setDate(next.getDate()+cycle);
+  const ovulation = new Date(last); ovulation.setDate(ovulation.getDate()+cycle-14);
+  const fertileStart = new Date(ovulation); fertileStart.setDate(fertileStart.getDate()-5);
+  const fertileEnd = new Date(ovulation); fertileEnd.setDate(fertileEnd.getDate()+1);
+  const periodEnd = new Date(last); periodEnd.setDate(periodEnd.getDate()+len-1);
+  const fmt = d => d.toLocaleDateString(undefined,{day:'numeric', month:'short', year:'numeric'});
+  panel.innerHTML = `
+    <div class="result-row"><span>This period ends</span><b>${fmt(periodEnd)}</b></div>
+    <div class="result-row"><span>Estimated fertile window</span><b>${fmt(fertileStart)} – ${fmt(fertileEnd)}</b></div>
+    <div class="result-row"><span>Estimated ovulation</span><b>${fmt(ovulation)}</b></div>
+    <div class="result-row"><span>Next period expected</span><b>${fmt(next)}</b></div>
+  `;
+}
+
+/* ============ PREGNANCY ============ */
+let pregMode = 'lmp';
+bindSeg('pregModeSeg', (v)=>{
+  pregMode = v;
+  document.getElementById('pregLmpField').style.display = v==='lmp' ? 'flex':'none';
+  document.getElementById('pregConField').style.display = v==='conception' ? 'flex':'none';
+  document.getElementById('pregCycleField').style.display = v==='lmp' ? 'flex':'none';
+});
+function calcPregnancy(){
+  const panel = document.getElementById('pregResult');
+  let due, start;
+  if(pregMode==='lmp'){
+    const val = document.getElementById('pregLmpDate').value;
+    if(!val){ panel.innerHTML='<p class="note" style="margin:0;">Please enter the first day of your last period.</p>'; return; }
+    const cycle = parseInt(document.getElementById('pregCycle').value)||28;
+    start = new Date(val+'T00:00:00');
+    due = new Date(start); due.setDate(due.getDate()+280+(cycle-28));
+  } else {
+    const val = document.getElementById('pregConDate').value;
+    if(!val){ panel.innerHTML='<p class="note" style="margin:0;">Please enter the conception date.</p>'; return; }
+    start = new Date(val+'T00:00:00'); start.setDate(start.getDate()-14);
+    due = new Date(start); due.setDate(due.getDate()+280);
+  }
+  const today = new Date(); today.setHours(0,0,0,0);
+  const daysAlong = Math.floor((today-start)/86400000);
+  const weeks = Math.max(Math.floor(daysAlong/7),0);
+  const days = Math.max(daysAlong%7,0);
+  let trimester = 1;
+  if(weeks>=27) trimester=3; else if(weeks>=13) trimester=2;
+  const fmt = d => d.toLocaleDateString(undefined,{day:'numeric', month:'short', year:'numeric'});
+  panel.innerHTML = `
+    <div class="result-big"><div class="num">${fmt(due)}</div><div class="lbl">Estimated due date</div></div>
+    <div class="result-row"><span>Current progress</span><b>${weeks}w ${days}d</b></div>
+    <div class="result-row"><span>Trimester</span><b>${trimester===1?'1st':trimester===2?'2nd':'3rd'}</b></div>
+  `;
+}
+
+/* ============ SLEEP ============ */
+let sleepMode = 'wake';
+bindSeg('sleepModeSeg', (v)=>{
+  sleepMode = v;
+  document.getElementById('sleepWakeField').style.display = v==='wake' ? 'flex':'none';
+  calcSleep();
+});
+function parseTime(str){
+  const m = str.match(/^(\d{1,2}):(\d{2})$/);
+  if(!m) return null;
+  const d = new Date(); d.setHours(parseInt(m[1]),parseInt(m[2]),0,0);
+  return d;
+}
+function fmtTime(d){ return d.toLocaleTimeString(undefined,{hour:'2-digit', minute:'2-digit'}); }
+function calcSleep(){
+  const out = document.getElementById('sleepResults');
+  const cycles = [6,5,4,3];
+  if(sleepMode==='wake'){
+    const t = parseTime(document.getElementById('sleepWakeTime').value);
+    if(!t){ out.innerHTML='<p class="note" style="margin:0;">Enter a time like 07:00</p>'; return; }
+    out.innerHTML = '<div class="lbl" style="margin-bottom:10px;">Suggested bedtimes for a ' + fmtTime(t) + ' wake-up</div>' +
+      cycles.map(c=>{
+        const bed = new Date(t); bed.setMinutes(bed.getMinutes() - (c*90+15));
+        return `<div class="result-row"><span>${c} sleep cycles (${(c*1.5).toFixed(1)}h)</span><b>${fmtTime(bed)}</b></div>`;
+      }).join('');
+  } else {
+    const now = new Date();
+    out.innerHTML = '<div class="lbl" style="margin-bottom:10px;">Suggested wake-up times from now</div>' +
+      cycles.slice().reverse().map(c=>{
+        const wake = new Date(now); wake.setMinutes(wake.getMinutes() + c*90 + 15);
+        return `<div class="result-row"><span>${c} sleep cycles (${(c*1.5).toFixed(1)}h)</span><b>${fmtTime(wake)}</b></div>`;
+      }).join('');
+  }
+}
+document.getElementById('sleepWakeTime').addEventListener('input', calcSleep);
+calcSleep();
+
+/* ============ WALKING ============ */
+const PACE = {slow:{kmh:3, met:2.8}, moderate:{kmh:5, met:3.5}, brisk:{kmh:6.5, met:4.3}};
+function calcWalking(){
+  const steps = parseFloat(document.getElementById('wSteps').value)||0;
+  const weight = parseFloat(document.getElementById('wWeight').value)||0;
+  const pace = PACE[document.getElementById('wPace').value];
+  const stepLengthM = 0.74;
+  const distanceKm = (steps*stepLengthM)/1000;
+  const timeHours = distanceKm/pace.kmh;
+  const calories = pace.met*weight*timeHours;
+  document.getElementById('wCalories').textContent = Math.round(calories);
+  document.getElementById('wDistance').textContent = distanceKm.toFixed(2)+' km';
+  const mins = Math.round(timeHours*60);
+  document.getElementById('wTime').textContent = (mins>=60 ? Math.floor(mins/60)+'h ' : '') + (mins%60)+'m';
+}
+['wSteps','wWeight','wPace'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', calcWalking);
+  document.getElementById(id).addEventListener('change', calcWalking);
+});
+calcWalking();
+
+/* ============ FITNESS PLANNER ============ */
+const PLAN_POOL = {
+  fatloss:['Full-body strength + 15 min cardio','HIIT cardio (20 min intervals)','Lower body strength + core','Brisk walk / steady cardio 30-40 min','Upper body strength + core','Active recovery — mobility & stretching','Rest'],
+  muscle:['Push (chest, shoulders, triceps)','Pull (back, biceps)','Legs & core','Rest or light cardio','Push (volume focus)','Pull (volume focus)','Legs (accessory) or rest'],
+  general:['Full-body strength','Cardio — 30 min moderate pace','Full-body strength','Mobility & core','Cardio or sport of choice','Active recovery — walk/stretch','Rest'],
+  endurance:['Easy-pace run/cycle 30 min','Interval training (short bursts)','Cross-training (swim/cycle) 30 min','Tempo run 25-35 min','Strength — legs & core','Long steady session (45-60 min)','Rest'],
+};
+function buildPlan(){
+  const goal = document.getElementById('fGoal').value;
+  const days = parseInt(document.getElementById('fDays').value);
+  const pool = PLAN_POOL[goal];
+  const rows = [];
+  let poolIdx = 0;
+  for(let d=1; d<=7; d++){
+    if(d<=days){ rows.push({day:'Day '+d, activity: pool[poolIdx % (pool.length-1)]}); poolIdx++; }
+    else { rows.push({day:'Day '+d, activity:'Rest'}); }
+  }
+  document.getElementById('planOutput').innerHTML = `
+    <table class="plan"><thead><tr><th>Day</th><th>Focus</th></tr></thead>
+    <tbody>${rows.map(r=>`<tr><td>${r.day}</td><td>${r.activity}</td></tr>`).join('')}</tbody></table>
+  `;
+}
+buildPlan();
+
+/* ============ RECIPES ============ */
+const RECIPES = [
+  {t:'Overnight Oats Bowl', kcal:320, tags:['Breakfast','Vegetarian'], ing:['½ cup rolled oats','¾ cup milk or yoghurt','1 tsp chia seeds','½ banana, sliced','A drizzle of honey'], steps:['Mix oats, milk and chia seeds in a jar.','Refrigerate overnight.','Top with banana and honey before eating.']},
+  {t:'Grilled Chicken Salad', kcal:410, tags:['Lunch','High-protein'], ing:['150g grilled chicken breast','2 cups mixed greens','Cherry tomatoes, cucumber','1 tbsp olive oil + lemon juice'], steps:['Grill the chicken and slice.','Toss greens, tomatoes and cucumber.','Add chicken on top, dress with oil and lemon.']},
+  {t:'Veggie Stir-Fry', kcal:290, tags:['Dinner','Vegan'], ing:['2 cups mixed vegetables','1 tbsp soy sauce','1 clove garlic, minced','1 tsp sesame oil','Cooked rice or noodles'], steps:['Heat sesame oil, sauté garlic.','Add vegetables, stir-fry 5-6 minutes.','Add soy sauce, serve over rice or noodles.']},
+  {t:'Red Lentil Soup', kcal:260, tags:['Dinner','Vegan'], ing:['1 cup red lentils','1 onion, chopped','1 carrot, diced','1 tsp cumin','4 cups vegetable stock'], steps:['Sauté onion and carrot until soft.','Add lentils, cumin and stock.','Simmer 20 minutes until lentils are tender.']},
+  {t:'Greek Yoghurt Parfait', kcal:230, tags:['Snack','High-protein'], ing:['1 cup Greek yoghurt','¼ cup granola','Mixed berries','1 tsp honey'], steps:['Layer yoghurt, granola and berries in a glass.','Drizzle honey on top.']},
+  {t:'Quinoa Buddha Bowl', kcal:380, tags:['Lunch','Vegan'], ing:['¾ cup cooked quinoa','½ cup chickpeas','Roasted sweet potato','Handful spinach','Tahini dressing'], steps:['Arrange quinoa, chickpeas, sweet potato and spinach in a bowl.','Drizzle with tahini dressing.']},
+  {t:'Baked Salmon & Greens', kcal:420, tags:['Dinner','High-protein'], ing:['150g salmon fillet','1 tbsp olive oil','1 lemon','2 cups steamed greens'], steps:['Season salmon with oil, salt and lemon.','Bake at 200°C for 12-15 minutes.','Serve with steamed greens.']},
+  {t:'Berry Protein Smoothie', kcal:250, tags:['Snack','Breakfast'], ing:['1 cup mixed berries','1 scoop protein powder','1 cup milk or plant milk','½ banana'], steps:['Add all ingredients to a blender.','Blend until smooth and serve chilled.']},
+];
+document.getElementById('recipeGrid').innerHTML = RECIPES.map((r,i)=>`
+  <div class="card recipe-card" id="rc${i}" onclick="toggleRecipe(${i})">
+    <h4>${r.t}</h4>
+    <div class="kcal">${r.kcal} kcal (approx.)</div>
+    <div class="recipe-tags">${r.tags.map(t=>`<span>${t}</span>`).join('')}</div>
+    <div class="recipe-detail">
+      <b>Ingredients</b>
+      <ul>${r.ing.map(i=>`<li>${i}</li>`).join('')}</ul>
+      <b>Steps</b>
+      <ul>${r.steps.map(s=>`<li>${s}</li>`).join('')}</ul>
+    </div>
+  </div>`).join('');
+function toggleRecipe(i){ document.getElementById('rc'+i).classList.toggle('open'); }
+
+/* ============ MEDICAL DICTIONARY ============ */
+const DICT = [
+  ['BP','Blood pressure'],['HR','Heart rate'],['RR','Respiratory rate'],['Temp','Temperature'],
+  ['BMI','Body mass index'],['ECG / EKG','Electrocardiogram (heart electrical activity)'],
+  ['MRI','Magnetic resonance imaging'],['CT','Computed tomography scan'],['Rx','Prescription'],
+  ['Dx','Diagnosis'],['Hx','History (medical history)'],['Sx','Symptoms'],['Tx','Treatment'],
+  ['NPO','Nothing by mouth (Latin: nil per os)'],['PRN','As needed'],['BID','Twice a day'],
+  ['TID','Three times a day'],['QID','Four times a day'],['QD','Once a day'],
+  ['IV','Intravenous (into a vein)'],['IM','Intramuscular (into a muscle)'],['PO','By mouth (Latin: per os)'],
+  ['STAT','Immediately'],['CBC','Complete blood count'],['WBC','White blood cell count'],
+  ['RBC','Red blood cell count'],['Hb / Hgb','Haemoglobin'],['ICU','Intensive care unit'],
+  ['ER / ED','Emergency room / department'],['OR','Operating room'],['OPD','Outpatient department'],
+  ['DNR','Do not resuscitate'],['COPD','Chronic obstructive pulmonary disease'],['CHF','Congestive heart failure'],
+  ['HTN','Hypertension (high blood pressure)'],['DM','Diabetes mellitus'],['UTI','Urinary tract infection'],
+  ['URI','Upper respiratory infection'],['N/V','Nausea and vomiting'],['SOB','Shortness of breath'],
+  ['LOC','Level of consciousness'],['ROM','Range of motion'],['WNL','Within normal limits'],
+  ['Pt','Patient'],['Fx','Fracture'],['GI','Gastrointestinal'],['CVS','Cardiovascular system'],
+  ['ENT','Ear, nose and throat'],['OB/GYN','Obstetrics and gynaecology'],['Peds','Paediatrics'],
+  ['Ortho','Orthopaedics'],['Derm','Dermatology'],['Neuro','Neurology'],
+  ['ABX','Antibiotics'],['Anti-HTN','Antihypertensive medication'],['BMI','Body mass index'],
+  ['LMP','Last menstrual period'],['EDD','Estimated date of delivery'],['C-section','Caesarean section'],
+  ['Pre-op','Before surgery'],['Post-op','After surgery'],['q.h.','Every hour'],['q.6h','Every 6 hours'],
+  ['a.c.','Before meals'],['p.c.','After meals'],['h.s.','At bedtime'],
+];
+function renderDict(){
+  const q = document.getElementById('dictSearch').value.trim().toLowerCase();
+  const list = document.getElementById('dictList');
+  const filtered = q ? DICT.filter(([a,m])=>a.toLowerCase().includes(q)||m.toLowerCase().includes(q)) : DICT;
+  if(filtered.length===0){ list.innerHTML = '<div class="dict-empty">No matches — try another term.</div>'; return; }
+  list.innerHTML = filtered.map(([a,m])=>`<div class="dict-row"><span class="ab">${a}</span><span>${m}</span></div>`).join('');
+}
+renderDict();
+</script>
+</body>
+</html>
